@@ -1,68 +1,37 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## react-redux 101
 
-## Available Scripts
+The three tenants of redux
+---
+First: the State Tree Principle
+everything that changes in app (data/ui state) is contained in a single object called the state or the state tree.
 
-In the project directory, you can run:
 
-### `npm start`
+Second: the Action Principle
+State tree is redundant (cannot be modified or written to). To change the state, dispatch an action.
+Action
+Plain JS Object
+must have defined ‘type’ property that describes the action to be taken
+The action.type will take the form of switch statement options in the reducer (see below).
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Third: the Reducer principle
+To describe state mutations write a function called the reducer.
+Reducer
+* is a Pure function (i.e. always returns same value given same arguments)
+* takes two arguments: current state of application, action to be dispatched
+* returns the next state of the application
+*  must return current state for undefined actions. (use default switch statement)
 
-### `npm test`
+---
+(Without redux)
+AppComponent —> childComponent
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+(With redux)
+Provider —> AppComponent —> Connect —> childComponent
 
-### `npm run build`
++ Provider gets all the requirements from Store which houses the reducers
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
++ Connect is able to communicate with the provider component directly via the Context system 
+(context system allows parent to communicate to a child component even if there are components in between)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
++ Connect component/ system/ tag also takes in Action creators along with the Provider component’s requirements from the store and thus talks to the child component
